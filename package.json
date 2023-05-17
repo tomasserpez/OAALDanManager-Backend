@@ -1,0 +1,19 @@
+{
+  "name": "oaaldanmanager",
+  "version": "1.0.0",
+  "description": "Plataforma de gestion de danes / Backend",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomasserpez/OAALDanManager-Backend.git"
+  },
+  "author": "Tomás Serpez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomasserpez/OAALDanManager-Backend/issues"
+  },
+  "homepage": "https://github.com/tomasserpez/OAALDanManager-Backend#readme"
+}
