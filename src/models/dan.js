@@ -60,3 +60,5 @@ Dan.init(
     timestamps: false,
   }
 );
+
+module.exports = Dan;

@@ -33,14 +33,14 @@ exports.getDanById = async (req,res) => {
 // Obtener un dan segun su NombreApellido
 exports.getDanByNombreApellido = async (req, res) => {
   try{
-    const nombreApellido = req.params.nombreApellido;
+    const NombreApellido = req.params.NombreApellido;
     const danes = await Dan.findAll({
       where: {
-        NombreApellido: nombreApellido
+        NombreApellido: NombreApellido
       }
     });
     
-    if(dan.length === 0){
+    if(danes.length === 0){
       return res.status(404).json({message: "No se encontró ningun dan bajo ese nombre."});
     }
 
@@ -55,7 +55,7 @@ exports.getDanByNombreApellido = async (req, res) => {
 // Agregar un dan
 exports.createDan = async (req,res) => {
   try{
-    const { NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF } = req.body; // Para crear un dan se necesita esa información.
+    const { NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF } = req.body; // Para crear un dan se necesita esa información.
     const dan = await Dan.create({ NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF });
     res.status(201).json(dan);
   }

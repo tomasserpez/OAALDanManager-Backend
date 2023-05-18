@@ -3,21 +3,21 @@ const router = express.Router();
 const danesController = require('../controllers/danesController');
 
 // GET
-router.get('/danes', danesController.getAllDanes);
+router.get('/', danesController.getAllDanes);
 
-router.get('/danes/:id', danesController.getDanById);
+router.get('/:id', danesController.getDanById);
 
-router.get('/danes/buscar', danesController.getDanByNombreApellido);
+router.get('/na/:NombreApellido', danesController.getDanByNombreApellido);
 
 // POST
-router.post('/danes', danesController.createDan);
+router.post('/', danesController.createDan);
 
 // PUT
-router.put('/danes/:id', danesController.updateDan);
+router.put('/:id', danesController.updateDan);
 
-router.put('/danes/:NombreApellido', danesController.updateDanByNombreApellido);
+router.put('/na/:NombreApellido', danesController.updateDanByNombreApellido);
 
 // DELETE
-router.delete('/danes/:id', danesController.deleteDan);
+router.delete('/:id', danesController.deleteDan);
 
 module.exports = router;
