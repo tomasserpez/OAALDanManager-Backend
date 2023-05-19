@@ -51,6 +51,10 @@ Dan.init(
     TipoDeAlumno:{
       type: DataTypes.STRING,
       allowNull: true
+    },
+    dni:{
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   },
   {

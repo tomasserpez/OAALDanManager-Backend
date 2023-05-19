@@ -51,12 +51,31 @@ exports.getDanByNombreApellido = async (req, res) => {
   }
 };
 
+// Obtener un dan segun su DNI
+exports.getDanByDni = async (req, res) => {
+  try{
+    const dni = req.params.dni;
+    const danes = await Dan.findAll({
+      where: {
+        dni: dni
+      }
+    });
+    if (danes.length === 0){
+      return res.status(404).json({message: "No se encontró ningun dan bajo ese dni..."});
+    }
+    res.status(200).json(danes);
+  } catch(error){
+    console.error(error);
+    res.status(500).json({message: "Error en el servidor..."});
+  }
+};
+
 
 // Agregar un dan
 exports.createDan = async (req,res) => {
   try{
-    const { NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF } = req.body; // Para crear un dan se necesita esa información.
-    const dan = await Dan.create({ NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF });
+    const { NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni } = req.body; // Para crear un dan se necesita esa información.
+    const dan = await Dan.create({ NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni });
     res.status(201).json(dan);
   }
   catch(error){
@@ -85,7 +104,8 @@ exports.updateDan = async (req, res) => {
       FechaNacimiento,
       Nacionalidad,
       Direccion,
-      NroAF
+      NroAF,
+      dni
     } = req.body;
     
     dan.NombreApellido = NombreApellido || dan.NombreApellido;
@@ -97,6 +117,8 @@ exports.updateDan = async (req, res) => {
     dan.Nacionalidad = Nacionalidad || dan.Nacionalidad;
     dan.Direccion = Direccion || dan.Direccion;
     dan.NroAF = NroAF || dan.NroAF;
+    dan.dni = dni || dan.dni;
+    
     await dan.save();
     req.status(200).json(dan);
 
@@ -136,7 +158,8 @@ exports.updateDanByNombreApellido = async (req,res)=>{
       Direccion,
       NroAF,
       Observacion,
-      TipoDeAlumno
+      TipoDeAlumno,
+      dni
     } = req.body;
 
     dan.Dan = Dan || dan.Dan;
@@ -149,6 +172,7 @@ exports.updateDanByNombreApellido = async (req,res)=>{
     dan.NroAF = NroAF || dan.NroAF;
     dan.Observacion = Observacion || dan.Observacion;
     dan.TipoDeAlumno = TipoDeAlumno || dan.TipoDeAlumno;
+    dan.dni = dni || dan.dni;
 
     await dan.save();
 

@@ -9,6 +9,8 @@ router.get('/:id', danesController.getDanById);
 
 router.get('/na/:NombreApellido', danesController.getDanByNombreApellido);
 
+router.get('/dni/:dni', danesController.getDanByDni);
+
 // POST
 router.post('/', danesController.createDan);
 
