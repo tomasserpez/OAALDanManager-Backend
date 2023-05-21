@@ -74,8 +74,8 @@ exports.getDanByDni = async (req, res) => {
 // Agregar un dan
 exports.createDan = async (req,res) => {
   try{
-    const { NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni } = req.body; // Para crear un dan se necesita esa información.
-    const dan = await Dan.create({ NombreApellido, Dan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni });
+    const { NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni } = req.body; // Para crear un dan se necesita esa información.
+    const dan = await Dan.create({ NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni });
     res.status(201).json(dan);
   }
   catch(error){
@@ -97,7 +97,7 @@ exports.updateDan = async (req, res) => {
     }
     const {
       NombreApellido,
-      Dan,
+      NroDan,
       NroMiembro,
       FechaUltimoExamen,
       FechaProximoExamen,
@@ -109,7 +109,7 @@ exports.updateDan = async (req, res) => {
     } = req.body;
     
     dan.NombreApellido = NombreApellido || dan.NombreApellido;
-    dan.Dan = Dan || dan.Dan;
+    dan.NroDan = NroDan || dan.NroDan;
     dan.NroMiembro = NroMiembro || dan.NroMiembro;
     dan.FechaUltimoExamen = FechaUltimoExamen || dan.FechaUltimoExamen;
     dan.FechaProximoExamen = FechaProximoExamen || dan.FechaProximoExamen;
@@ -120,7 +120,7 @@ exports.updateDan = async (req, res) => {
     dan.dni = dni || dan.dni;
     
     await dan.save();
-    req.status(200).json(dan);
+    res.status(200).json(dan);
 
     }
   catch(error){
@@ -149,7 +149,7 @@ exports.updateDanByNombreApellido = async (req,res)=>{
     }
 
     const {
-      Dan,
+      NroDan,
       NroMiembro,
       FechaUltimoExamen,
       FechaProximoExamen,
@@ -162,7 +162,7 @@ exports.updateDanByNombreApellido = async (req,res)=>{
       dni
     } = req.body;
 
-    dan.Dan = Dan || dan.Dan;
+    dan.NroDan = NroDan || dan.NroDan;
     dan.NroMiembro = NroMiembro || dan.NroMiembro;
     dan.FechaUltimoExamen = FechaUltimoExamen || dan.FechaUltimoExamen;
     dan.FechaProximoExamen = FechaProximoExamen || dan.FechaProximoExamen;

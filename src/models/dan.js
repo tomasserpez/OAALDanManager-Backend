@@ -12,7 +12,7 @@ Dan.init(
       type: DataTypes.STRING,
       allowNull: false
     },
-    Dan: {
+    NroDan: {
       type: DataTypes.STRING,
       allowNull: false
     },
