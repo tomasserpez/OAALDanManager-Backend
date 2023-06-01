@@ -36,6 +36,7 @@ nombres=("Juan Perez" "Maria Rodriguez" "Luis Gonzalez" "Ana Fernandez" "Carlos 
 danes=("Shodan" "Nidan" "Sandan" "Yodan" "Godan" "Rokudan" "Nanadan" "Hachidan")
 barrios=("Palermo" "Belgrano" "Recoleta" "Caballito" "Flores" "Villa Devoto" "Saavedra" "San Telmo" "Almagro" "Villa Crespo")
 fechas=("15/02/2017" "23/03/2017" "05/06/2017" "10/09/2017" "18/12/2017" "20/03/2018" "01/06/2018" "12/09/2018" "25/12/2018" "28/02/2019")
+tipoAlumno=("A" "B" "C" "D")
 
 # Generar registros de alumnos
 echo "Generando registros de alumnos..."
@@ -53,7 +54,7 @@ for ((i = 0; i < 15; i++)); do
   Observacion="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec tortor lacus, porta eu posuere elementum, faucibus ut augue. Praesent at lectus id dolor volutpat lacinia at in felis. Praesent quam risus, iaculis id vestibulum vitae, pharetra finibus nibh. Nunc ut pellentesque leo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Donec massa arcu, fermentum et iaculis nec, volutpat quis enim. Aliquam id porta mi. Proin dignissim luctus quam quis pulvinar. Fusce aliquet ipsum sem, in pellentesque lorem bibendum quis.
 
 Ut porta iaculis sapien, et lobortis purus euismod vel. Mauris aliquet eleifend euismod. Aliquam elementum, nibh vitae vehicula pretium, dolor sapien sagittis ante, sed tincidunt sem lacus non nisi. Sed felis dolor, bibendum nec metus at, pulvinar eleifend dui. Sed pharetra est vitae dolor interdum, in facilisis urna pellentesque. Nunc in nisl non nisi auctor varius."
-  TipoDeAlumno="B"
+  TipoDeAlumno="${tipoAlumno[$((i % ${#tipoAlumno[@]}))]}"
   dni=$(printf "%08d" $((10000000 + i)))
 
   sqlite3 "$DATABASE_PATH" <<EOF
