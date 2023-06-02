@@ -74,8 +74,8 @@ exports.getDanByDni = async (req, res) => {
 // Agregar un dan
 exports.createDan = async (req,res) => {
   try{
-    const { NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni } = req.body; // Para crear un dan se necesita esa información.
-    const dan = await Dan.create({ NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni });
+    const { NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni,Telefono,Email,CodigoPostal,QueDojoPertenece } = req.body; // Para crear un dan se necesita esa información.
+    const dan = await Dan.create({ NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni, Telefono,Email,CodigoPostal,QueDojoPertenece });
     res.status(201).json(dan);
   }
   catch(error){
@@ -105,7 +105,11 @@ exports.updateDan = async (req, res) => {
       Nacionalidad,
       Direccion,
       NroAF,
-      dni
+      dni,
+      Telefono,
+      Email,
+      CodigoPostal,
+      QueDojoPertenece
     } = req.body;
     
     dan.NombreApellido = NombreApellido || dan.NombreApellido;
@@ -118,6 +122,10 @@ exports.updateDan = async (req, res) => {
     dan.Direccion = Direccion || dan.Direccion;
     dan.NroAF = NroAF || dan.NroAF;
     dan.dni = dni || dan.dni;
+    dan.Telefono = Telefono || dan.Telefono;
+    dan.Email = Email || dan.Email;
+    dan.CodigoPostal = CodigoPostal || dan.CodigoPostal;
+    dan.QueDojoPertenece = QueDojoPertenece || dan.QueDojoPertenece;
     
     await dan.save();
     res.status(200).json(dan);
@@ -159,7 +167,11 @@ exports.updateDanByNombreApellido = async (req,res)=>{
       NroAF,
       Observacion,
       TipoDeAlumno,
-      dni
+      dni,
+      Telefono,
+      Email,
+      CodigoPostal,
+      QueDojoPertenece
     } = req.body;
 
     dan.NroDan = NroDan || dan.NroDan;
@@ -173,6 +185,10 @@ exports.updateDanByNombreApellido = async (req,res)=>{
     dan.Observacion = Observacion || dan.Observacion;
     dan.TipoDeAlumno = TipoDeAlumno || dan.TipoDeAlumno;
     dan.dni = dni || dan.dni;
+    dan.Telefono = Telefono || dan.Telefono;
+    dan.Email = Email || dan.Email;
+    dan.CodigoPostal = CodigoPostal || dan.CodigoPostal;
+    dan.QueDojoPertenece = QueDojoPertenece || dan.QueDojoPertenece;
 
     await dan.save();
 

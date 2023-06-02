@@ -55,6 +55,22 @@ Dan.init(
     dni:{
       type: DataTypes.INTEGER,
       allowNull: false
+    },
+    Telefono:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    Email:{
+      type: DataTypes.STRING,
+      allowNull: true
+    },
+    CodigoPostal:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    QueDojoPertenece:{
+      type: DataTypes.STRING,
+      allowNull: false
     }
   },
   {
