@@ -74,8 +74,8 @@ exports.getDanByDni = async (req, res) => {
 // Agregar un dan
 exports.createDan = async (req,res) => {
   try{
-    const { NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni,Telefono,Email,CodigoPostal,QueDojoPertenece } = req.body; // Para crear un dan se necesita esa información.
-    const dan = await Dan.create({ NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni, Telefono,Email,CodigoPostal,QueDojoPertenece });
+    const { NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni,Telefono,Email,CodigoPostal,QueDojoPertenece, Provincia } = req.body; // Para crear un dan se necesita esa información.
+    const dan = await Dan.create({ NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni, Telefono,Email,CodigoPostal,QueDojoPertenece, Provincia });
     res.status(201).json(dan);
   }
   catch(error){
@@ -109,7 +109,8 @@ exports.updateDan = async (req, res) => {
       Telefono,
       Email,
       CodigoPostal,
-      QueDojoPertenece
+      QueDojoPertenece,
+      Provincia
     } = req.body;
     
     dan.NombreApellido = NombreApellido || dan.NombreApellido;
@@ -126,6 +127,7 @@ exports.updateDan = async (req, res) => {
     dan.Email = Email || dan.Email;
     dan.CodigoPostal = CodigoPostal || dan.CodigoPostal;
     dan.QueDojoPertenece = QueDojoPertenece || dan.QueDojoPertenece;
+    dan.Provincia = Provincia || dan.Provincia;
     
     await dan.save();
     res.status(200).json(dan);
@@ -171,7 +173,8 @@ exports.updateDanByNombreApellido = async (req,res)=>{
       Telefono,
       Email,
       CodigoPostal,
-      QueDojoPertenece
+      QueDojoPertenece,
+      Provincia
     } = req.body;
 
     dan.NroDan = NroDan || dan.NroDan;
@@ -189,6 +192,7 @@ exports.updateDanByNombreApellido = async (req,res)=>{
     dan.Email = Email || dan.Email;
     dan.CodigoPostal = CodigoPostal || dan.CodigoPostal;
     dan.QueDojoPertenece = QueDojoPertenece || dan.QueDojoPertenece;
+    dan.Provincia = Provincia || dan.Provincia;
 
     await dan.save();
 

@@ -21,15 +21,15 @@ Dan.init(
       allowNull: false
     },
     FechaUltimoExamen: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false
     },
     FechaProximoExamen: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: true
     },
     FechaNacimiento: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false
     },
     Nacionalidad: {
@@ -69,6 +69,10 @@ Dan.init(
       allowNull: false
     },
     QueDojoPertenece:{
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    Provincia:{
       type: DataTypes.STRING,
       allowNull: false
     }
