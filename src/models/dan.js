@@ -14,8 +14,7 @@ const danSchema = new mongoose.Schema({
     required: true
   },
   nroDan:{
-    type: String,
-    enum: ['Shodan', 'Nidan', 'Sandan', 'Yodan', 'Godan', 'Rokudan', 'Nanadan', 'Hachidan'],
+    type: Number,
     required: true
   },
   nroMiembro:{
