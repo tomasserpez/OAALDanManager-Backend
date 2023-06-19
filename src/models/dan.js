@@ -1,88 +1,92 @@
-// Definimos el modelo de datos y clase de dan
+const mongoose = require('mongoose');
 
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../../config/database');
-
-
-class Dan extends Model{}
-
-Dan.init(
-  {
-    NombreApellido: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    NroDan: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    NroMiembro: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    FechaUltimoExamen: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    FechaProximoExamen: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    FechaNacimiento: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    Nacionalidad: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    Direccion: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    NroAF: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    Observacion: {
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    TipoDeAlumno:{
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    dni:{
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    Telefono:{
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    Email:{
-      type: DataTypes.STRING,
-      allowNull: true
-    },
-    CodigoPostal:{
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    QueDojoPertenece:{
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-    Provincia:{
-      type: DataTypes.STRING,
-      allowNull: false
-    }
+const danSchema = new mongoose.Schema({
+  nombre:{
+    type: String,
+    required: true
   },
-  {
-    sequelize,
-    tableName: 'danes',
-    modelName: 'Dan',
-    timestamps: false,
+  apellido:{
+    type: String,
+    required: true
+  },
+  sexo:{
+    type: String,
+    required: true
+  },
+  nroDan:{
+    type: Number,
+    required: true
+  },
+  nroMiembro:{
+    type: Number,
+    required: false
+  },
+  membership:{
+    type: Number,
+    required: false
+  },
+  nroAF:{
+    type: Number,
+    required: false
+  },
+  fechaUltimoExamen:{
+    type: Date,
+    required: true
+  },
+  fechaProximoExamen:{
+    type: Date,
+    required: false
+  },
+  fechaNacimiento:{
+    type: Date,
+    required: false
+  },
+  nacionalidad:{
+    type: String,
+    required: true
+  },
+  dni: {
+    type: Number,
+    required: false
+  },
+  queDojoPertenece:{
+    type: String,
+    required: false
+  },
+  pais:{
+    type: String,
+    required: true
+  },
+  provincia:{
+    type: String,
+    required: true
+  },
+  direccion:{
+    type: String,
+    required: false
+  },
+  codigoPostal:{
+    type: String,
+    required: false
+  },
+  telefono:{
+    type: String,
+    required: false
+  },
+  email:{
+    type: String,
+    required: false
+  },
+  tipoAlumno:{
+    type: String,
+    required: false
+  },
+  observacion:{
+    type: String,
+    required: false
   }
-);
+});
+
+const Dan = mongoose.model('Dan', danSchema);
 
 module.exports = Dan;
