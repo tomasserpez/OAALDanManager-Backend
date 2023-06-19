@@ -1,20 +1,30 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const app = express();
+const mongoose = require('mongoose');
+const databaseConfig = require('./config/database');
 const danesRoutes = require('./src/routes/danes');
-const sequelize = require('./config/database')
 
+// Configuración de Express
+const app = express();
+app.use(express.json());
 app.use(cors());
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
 
-// API routes
-app.use('/api/danes', danesRoutes);
+// Configuración de la conexión de la base de datos
+mongoose.connect(databaseConfig.url, {useNewUrlParser: true, useUnifiedTopology: true})
+  .then(() => {
+    console.log('Conexión a la base de datos establecida!');
+  })
+  .catch((error) => {
+    console.error('Error al conectar a la base de datos: ', error);
+    process.exit(1);
+  });
 
-sequelize.sync().then(() => {
-  app.listen(8080, () => console.log('Server está corriendo en el puerto 8080'));
-}).catch(error => {
-  console.log('Error al sincronizar la base de datos: ', error);
+// Rutas
+app.use('/danes', danesRoutes);
+
+// Puerto de escucha
+const port = process.env.PORT || 3000;
+app.listen(port, ()=>{
+  console.log(`El servidor se encuentra escuchando en el puerto ${port}`);
 });
-

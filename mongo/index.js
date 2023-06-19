@@ -34,7 +34,7 @@ async function generateFakeData() {
     console.log('Conexión exitosa a la base de datos...');
 
     const database = client.db('oaal');
-    const collection = database.collection('danes');
+    const collection = database.collection('dans');
 
     console.log('Generando personas: ');
     for (let i = 0; i < 50; i++) {

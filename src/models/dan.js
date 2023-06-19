@@ -88,4 +88,5 @@ const danSchema = new mongoose.Schema({
 });
 
 const Dan = mongoose.model('Dan', danSchema);
+
 module.exports = Dan;

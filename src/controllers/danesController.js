@@ -1,222 +1,94 @@
-const { Op } = require('sequelize'); // Paquete para la interacción de la base de datos
-const Dan = require('../models/dan'); // Modelo de datos de un Dan
+const Dan = require('../models/dan');
 
-
-// Obtener el listado de todos los danes
-exports.getAllDanes = async (req,res)=>{
+// Obtenemos el listado de todos los danes
+exports.getAllDanes = async (req,res) => {
   try{
-    const danes = await Dan.findAll();
+    const danes = await Dan.find();
     res.status(200).json(danes);
-  }
-  catch(error){
-    console.error(error);
-    res.status(500).json({message: 'Error en el servidor...'});
+  }catch(error){
+    console.error("Error al obtener todos los danes: ", error);
+    res.status(500).json({ message: 'Error en el servidor...' });
   }
 };
 
-
-// Obtener un dan segun su ID
-exports.getDanById = async (req,res) => {
+// Obtenemos el listado de ID de los danes
+exports.getAllIdDanes = async (req,res) => {
   try{
-    const dan = await Dan.findByPk(req.params.id);
+    const danes = await Dan.find({}, '_id');
+    res.status(200).json(danes);
+  }catch(error){
+    console.error("Error al obtener todos los danes: ", error);
+    res.status(500).json({ message: 'Error en el servidor...' });
+  }
+};
+
+// Obtener dan por ID
+exports.getDanById = async (req,res)=>{
+  try{
+    const dan = await Dan.findById(req.params.id);
     if(!dan){
-      return res.status(404).json({message: 'El dan no fue encontrado...'});
+      return res.status(404).json({ message: 'El dan no fue encontrado.' });
     }
     res.status(200).json(dan);
-  }
-  catch(error){
-    console.error(error);
-    res.status(500).json({message: 'Error en el servidor...'});
+  }catch(error){
+    console.error("Error al obtener dan por id: ", error);
+    res.status(500).json({ message: 'Error en el servidor...' });
   }
 };
 
-// Obtener un dan segun su NombreApellido
-exports.getDanByNombreApellido = async (req, res) => {
+// Obtenemos dan por su DNI
+exports.getDanByDni = async (req,res)=>{
   try{
-    const NombreApellido = req.params.NombreApellido;
-    const danes = await Dan.findAll({
-      where: {
-        NombreApellido: NombreApellido
-      }
-    });
-    
+    const danes = await Dan.find({ dni: req.params.dni });
     if(danes.length === 0){
-      return res.status(404).json({message: "No se encontró ningun dan bajo ese nombre."});
+      return res
+        .status(404)
+        .json({ message: 'No se encontró ningun dan con ese DNI' });
     }
-
     res.status(200).json(danes);
-  } catch(error){
-    console.error(error);
-    res.status(500).json({message: "Error en el servidor..."});
+  }catch(error){
+    console.error("Error al obtener dan por DNI: ", error);
+    res.status(500).json({ message: 'Error en el servidor...' });
   }
 };
 
-// Obtener un dan segun su DNI
-exports.getDanByDni = async (req, res) => {
-  try{
-    const dni = req.params.dni;
-    const danes = await Dan.findAll({
-      where: {
-        dni: dni
-      }
-    });
-    if (danes.length === 0){
-      return res.status(404).json({message: "No se encontró ningun dan bajo ese dni..."});
-    }
-    res.status(200).json(danes);
-  } catch(error){
-    console.error(error);
-    res.status(500).json({message: "Error en el servidor..."});
-  }
-};
-
-
-// Agregar un dan
+// Agregamos un dan
 exports.createDan = async (req,res) => {
   try{
-    const { NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni,Telefono,Email,CodigoPostal,QueDojoPertenece, Provincia } = req.body; // Para crear un dan se necesita esa información.
-    const dan = await Dan.create({ NombreApellido, NroDan, NroMiembro, FechaUltimoExamen, FechaProximoExamen, FechaNacimiento, Nacionalidad, Direccion, NroAF, dni, Telefono,Email,CodigoPostal,QueDojoPertenece, Provincia });
+    const dan = await Dan.create(req.body);
     res.status(201).json(dan);
-  }
-  catch(error){
-    console.error(error);
-    if(error.name == "SequelizeUniqueConstraintError"){
-      res.status(400).json({message: "El dan ya se encuentra cargado..."});
-    }else{
-      res.status(500).json({message: "Error en el servidor..."});
-    }
+  }catch(error){
+    console.error("Error al agregar un dan: ",error);
+    res.status(500).json({ message: 'Error en el servidor...' });
   }
 };
 
-// Actualizar un Dan segun su ID
-exports.updateDan = async (req, res) => {
+// Actualizamos un dan
+exports.updateDan = async (req,res) => {
   try{
-    const dan = await Dan.findByPk(req.params.id);
-    if(!dan){
-      return res.status(404).json({message: "Dan no encontrado..."});
-    }
-    const {
-      NombreApellido,
-      NroDan,
-      NroMiembro,
-      FechaUltimoExamen,
-      FechaProximoExamen,
-      FechaNacimiento,
-      Nacionalidad,
-      Direccion,
-      NroAF,
-      dni,
-      Telefono,
-      Email,
-      CodigoPostal,
-      QueDojoPertenece,
-      Provincia
-    } = req.body;
-    
-    dan.NombreApellido = NombreApellido || dan.NombreApellido;
-    dan.NroDan = NroDan || dan.NroDan;
-    dan.NroMiembro = NroMiembro || dan.NroMiembro;
-    dan.FechaUltimoExamen = FechaUltimoExamen || dan.FechaUltimoExamen;
-    dan.FechaProximoExamen = FechaProximoExamen || dan.FechaProximoExamen;
-    dan.FechaNacimiento = FechaNacimiento || dan.FechaNacimiento;
-    dan.Nacionalidad = Nacionalidad || dan.Nacionalidad;
-    dan.Direccion = Direccion || dan.Direccion;
-    dan.NroAF = NroAF || dan.NroAF;
-    dan.dni = dni || dan.dni;
-    dan.Telefono = Telefono || dan.Telefono;
-    dan.Email = Email || dan.Email;
-    dan.CodigoPostal = CodigoPostal || dan.CodigoPostal;
-    dan.QueDojoPertenece = QueDojoPertenece || dan.QueDojoPertenece;
-    dan.Provincia = Provincia || dan.Provincia;
-    
-    await dan.save();
-    res.status(200).json(dan);
-
-    }
-  catch(error){
-    console.error(error);
-    if(error.name==="SequelizeUniqueConstraintError"){
-      res.status(400).json({message: "El dan ya existe..."});
-    }else{
-      res.status(500).json({message: "Error en el servidor..."});
-    }
-  }
-};
-
-// Actualizamos un dan segun su nombre y apellido
-
-exports.updateDanByNombreApellido = async (req,res)=>{
-  try{
-
-    const nombreApellido = req.params.nombreApellido;
-    const dan = await Dan.findOne({
-      where: {
-        NombreApellido: nombreApellido
-      }
+    const dan = await Dan.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
     });
     if(!dan){
-      return res.status(404).json({message: "El dan buscado no fue encontrado..."});
+      return res.status(404).json({ message:'Dan no encontrado' });
     }
-
-    const {
-      NroDan,
-      NroMiembro,
-      FechaUltimoExamen,
-      FechaProximoExamen,
-      FechaNacimiento,
-      Nacionalidad,
-      Direccion,
-      NroAF,
-      Observacion,
-      TipoDeAlumno,
-      dni,
-      Telefono,
-      Email,
-      CodigoPostal,
-      QueDojoPertenece,
-      Provincia
-    } = req.body;
-
-    dan.NroDan = NroDan || dan.NroDan;
-    dan.NroMiembro = NroMiembro || dan.NroMiembro;
-    dan.FechaUltimoExamen = FechaUltimoExamen || dan.FechaUltimoExamen;
-    dan.FechaProximoExamen = FechaProximoExamen || dan.FechaProximoExamen;
-    dan.FechaNacimiento = FechaNacimiento || dan.FechaNacimiento;
-    dan.Nacionalidad = Nacionalidad || dan.Nacionalidad;
-    dan.Direccion = Direccion || dan.Direccion;
-    dan.NroAF = NroAF || dan.NroAF;
-    dan.Observacion = Observacion || dan.Observacion;
-    dan.TipoDeAlumno = TipoDeAlumno || dan.TipoDeAlumno;
-    dan.dni = dni || dan.dni;
-    dan.Telefono = Telefono || dan.Telefono;
-    dan.Email = Email || dan.Email;
-    dan.CodigoPostal = CodigoPostal || dan.CodigoPostal;
-    dan.QueDojoPertenece = QueDojoPertenece || dan.QueDojoPertenece;
-    dan.Provincia = Provincia || dan.Provincia;
-
-    await dan.save();
-
     res.status(200).json(dan);
-  }
-  catch(error){
-    console.error(error);
-    res.status(500).json({message: "Error en el servidor..."});
+  }catch(error){
+    console.error("Error al actualizar un dan: ", error);
+    res.status(500).json({ message: 'Error en el servidor...' });
   }
 };
 
-// Eliminamos un dan
-
-exports.deleteDan = async (req,res)=>{
+// Eliminar un dan por su ID
+exports.deleteDan = async (req,res) => {
   try{
-    const dan = await Dan.findByPk(req.params.id);
+    const dan = await Dan.findByIdAndRemove(req.params.id);
     if(!dan){
-      return res.status(404).json({message: "Dan no encontrado..."});
+      return res.status(404).json({ message: "Dan no encontrado" });
     }
-    await dan.destroy();
     res.status(204).end();
   }catch(error){
-    console.error(error);
-    res.status(500).json({message: "Error en el servidor..."});
+    console.error("Error al eliminar un dan: ", error);
+    res.status(500).json({ message: 'Error en el servidor...' });
   }
 };
-
