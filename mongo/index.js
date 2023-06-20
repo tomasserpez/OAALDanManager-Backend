@@ -45,9 +45,9 @@ async function generateFakeData() {
       const nroMiembro = faker.datatype.number({min: 100000, max: 999999});
       const membership = faker.datatype.number({min: 100000, max: 999999});
       const nroAF = faker.datatype.number({min: 1000, max: 99999});
-      const fechaUltimoExamen = generateFormattedDate('1995-01-01', '2023-12-31');
-      const fechaNacimiento = generateFormattedDate('1940-01-01', fechaUltimoExamen);
-      const fechaProximoExamen = generateFormattedDate(fechaUltimoExamen, '2025-12-31');
+      const fechaUltimoExamen = generateFormattedDate('01-01-1995', '31-12-2023');
+      const fechaNacimiento = generateFormattedDate('01-01-1940', fechaUltimoExamen);
+      const fechaProximoExamen = generateFormattedDate(fechaUltimoExamen, '31-12-2025');
       const nacionalidad = faker.address.country();
       const dni = faker.datatype.number({min: 10000000, max: 99999999});
       const queDojoPertenece = faker.person.firstName() + ' Dojo';

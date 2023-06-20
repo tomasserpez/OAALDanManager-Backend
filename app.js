@@ -24,7 +24,7 @@ mongoose.connect(databaseConfig.url, {useNewUrlParser: true, useUnifiedTopology:
 app.use('/danes', danesRoutes);
 
 // Puerto de escucha
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 app.listen(port, ()=>{
   console.log(`El servidor se encuentra escuchando en el puerto ${port}`);
 });

@@ -30,15 +30,15 @@ const danSchema = new mongoose.Schema({
     required: false
   },
   fechaUltimoExamen:{
-    type: Date,
+    type: String,
     required: true
   },
   fechaProximoExamen:{
-    type: Date,
+    type: String,
     required: false
   },
   fechaNacimiento:{
-    type: Date,
+    type: String,
     required: false
   },
   nacionalidad:{
