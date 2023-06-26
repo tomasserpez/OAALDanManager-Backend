@@ -5,13 +5,13 @@ const { format } = require('date-fns');
 
 // Generar un número de dan aleatorio
 const getRandomDan = () => {
-    return Math.floor(Math.random() * 8 );
+    return Math.floor(Math.random() * 7 + 1 );
 }
 
 // Formatear fechas
 const generateFormattedDate = (desde, hasta) => {
     const date = faker.date.between({from: desde, to: hasta});
-    return format(date, 'dd-MM-yyyy');
+    return format(date, 'yyyy-MM-dd');
 };
 
 // Obtener un numero aleatorio entre 2

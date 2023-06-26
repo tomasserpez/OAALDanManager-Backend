@@ -27,7 +27,7 @@ exports.getDanById = async (req,res)=>{
   try{
     const dan = await Dan.findById(req.params.id);
     if(!dan){
-      return res.status(404).json({ message: 'El dan no fue encontrado.' });
+      return res.json({ message: 'El dan no fue encontrado.' });
     }
     res.status(200).json(dan);
   }catch(error){
@@ -42,7 +42,6 @@ exports.getDanByDni = async (req,res)=>{
     const danes = await Dan.find({ dni: req.params.dni });
     if(danes.length === 0){
       return res
-        .status(404)
         .json({ message: 'No se encontró ningun dan con ese DNI' });
     }
     res.status(200).json(danes);
@@ -70,7 +69,7 @@ exports.updateDan = async (req,res) => {
       new: true,
     });
     if(!dan){
-      return res.status(404).json({ message:'Dan no encontrado' });
+      return res.json({ message:'Dan no encontrado' });
     }
     res.status(200).json(dan);
   }catch(error){
@@ -84,7 +83,7 @@ exports.deleteDan = async (req,res) => {
   try{
     const dan = await Dan.findByIdAndRemove(req.params.id);
     if(!dan){
-      return res.status(404).json({ message: "Dan no encontrado" });
+      return res.json({ message: "Dan no encontrado" });
     }
     res.status(204).end();
   }catch(error){
