@@ -8,7 +8,7 @@ const danesRoutes = require('./src/routes/danes');
 // Configuración de Express
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(cors({origin: "https://danmanager-frontend.onrender.com"}));
 
 // Configuración de la conexión de la base de datos
 mongoose.connect(databaseConfig.url, {useNewUrlParser: true, useUnifiedTopology: true})
