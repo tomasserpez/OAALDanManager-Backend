@@ -10,7 +10,9 @@
 // });
 
 // module.exports = sequelize;
+const dotenv = require('dotenv');
+dotenv.config();
 
 module.exports = {
-  url: 'mongodb://0.0.0.0:27017/oaal',
+  url: process.env.MONGO_ATLAS,
 };
