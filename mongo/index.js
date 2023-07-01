@@ -37,7 +37,7 @@ async function generateFakeData() {
     const collection = database.collection('dans');
 
     console.log('Generando personas: ');
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 2; i++) {
       const gender = faker.person.sexType();
       const firstName = faker.person.firstName(gender);
       const lastName = faker.person.lastName();
