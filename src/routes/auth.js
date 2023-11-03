@@ -11,7 +11,7 @@ router.use((req, res, next) => {
     next();
 });
 
-router.post("/signup", verifySignup.checkExistingUser, authController.signupHandler);
+// router.post("/signup", verifySignup.checkExistingUser, authController.signupHandler);
 
 router.post("/signin", authController.signinHandler);
 

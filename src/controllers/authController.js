@@ -39,7 +39,7 @@ exports.signinHandler = async (req, res) => {
     try{
         //usuario o mail
         const userFound = await User.findOne({
-            email: req.body.email
+            username: req.body.username
         });
 
         if(!userFound){
